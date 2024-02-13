@@ -5,8 +5,10 @@ import { Command } from 'commander';
 const program = new Command();
 
 program
-  .name('gendiff [options]')
+  .name('gendiff')
   .description('Compares two configuration files and shows a difference.')
-  .version('1.0.0');
+  .version('1.0.0')
+  .option('-f, --format', 'output format')
+  .arguments('<filepath1> <filepath2>');
 
 program.parse();
