@@ -1,0 +1,3 @@
+test('Test entry point', () => {
+  // ...
+});
