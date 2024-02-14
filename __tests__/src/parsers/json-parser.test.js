@@ -1,7 +1,10 @@
+/* eslint no-underscore-dangle: 0 */
+
 import { test, expect } from '@jest/globals';
 
-import { cwd } from 'node:process';
 import * as path from 'path';
+import { fileURLToPath } from 'node:url';
+
 import {
   getFileData,
   getDiffData,
@@ -9,9 +12,11 @@ import {
   getDiff,
 } from '../../../src/parsers/json-parser.js';
 
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
 const filesData = [
   {
-    path: '/home/ansi/work/my/hexlet/frontend-project-46/src/temp/file1.json',
+    path: path.resolve(__dirname, '../../__fixtures__/file1.json'),
     extension: 'json',
     content: {
       host: 'hexlet.io',
@@ -21,15 +26,15 @@ const filesData = [
     },
   },
   {
-    path: '/home/ansi/work/my/hexlet/frontend-project-46/src/temp/file2.json',
+    path: path.resolve(__dirname, '../../__fixtures__/file1.json'),
     extension: 'json',
     content: { timeout: 20, verbose: true, host: 'hexlet.io' },
   },
 ];
 
 const filesPaths = [
-  path.resolve(cwd(), 'src/temp/file1.json'),
-  path.resolve(cwd(), 'src/temp/file2.json'),
+  path.resolve(__dirname, '../../__fixtures__/file1.json'),
+  path.resolve(__dirname, '../../__fixtures__/file2.json'),
 ];
 
 test('check json-parser getFileData()', () => {

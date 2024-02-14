@@ -26,7 +26,7 @@ const getDiffData = (json1, json2) => {
 
   sortedKeys.forEach((key) => {
     let status;
-    let values = {};
+    const values = {};
 
     // no changes
     if (!Object.hasOwn(json2, key)) {
@@ -78,6 +78,9 @@ const getDiffResult = (json1, json2) => {
         acc.push(`${prefixes.minus}${key}: ${values.old}`);
         break;
       }
+      default: {
+        break;
+      }
     }
 
     return acc;
@@ -102,4 +105,5 @@ const getDiff = (filepath1, filepath2) => {
   }
 };
 
+// eslint-disable-next-line
 export { getFileData, getDiffData, getDiffResult, getDiff };

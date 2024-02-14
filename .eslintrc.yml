@@ -1,5 +1,3 @@
-plugins:
-
 env:
   node: true
   es2021: true
@@ -25,6 +23,9 @@ rules:
     - always
   no-console:
     - off
+  brace-style:
+    - error
+    - stroustrup
   import/extensions:
     - error
     - ignorePackages
