@@ -8,7 +8,7 @@ publish:
 	npm publish --dry-run
 
 test:
-	npx jest
+	npx jest --watch
 
 lint:
 	npx eslint .
