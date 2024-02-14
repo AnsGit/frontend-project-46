@@ -1,5 +1,3 @@
-/* eslint no-underscore-dangle: 0 */
-
 import { test, expect } from '@jest/globals';
 
 import * as path from 'path';
