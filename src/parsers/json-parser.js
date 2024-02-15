@@ -2,18 +2,7 @@ import fs from 'node:fs';
 import _ from 'lodash';
 import { cwd } from 'node:process';
 import * as path from 'path';
-
-const getFileData = (filepath) => {
-  const absPath = path.resolve(cwd(), filepath);
-  const extension = path.extname(filepath).slice(1);
-  const content = fs.readFileSync(filepath);
-
-  return {
-    path: absPath,
-    extension,
-    content: JSON.parse(content),
-  };
-};
+import { getFileData } from './file-reader.js';
 
 const getDiffData = (json1, json2) => {
   const keys = _.uniq([...Object.keys(json1), ...Object.keys(json2)]);
@@ -106,4 +95,4 @@ const getDiff = (filepath1, filepath2) => {
 };
 
 // eslint-disable-next-line
-export { getFileData, getDiffData, getDiffResult, getDiff };
+export { getDiffData, getDiffResult, getDiff };
