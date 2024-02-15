@@ -1,8 +1,4 @@
-import fs from 'node:fs';
 import _ from 'lodash';
-import { cwd } from 'node:process';
-import * as path from 'path';
-import { getFileData } from './file-reader.js';
 
 const getDiffData = (json1, json2) => {
   const keys = _.uniq([...Object.keys(json1), ...Object.keys(json2)]);
@@ -43,7 +39,7 @@ const getDiffData = (json1, json2) => {
   return result;
 };
 
-const getDiffResult = (json1, json2) => {
+const getDiff = (json1, json2) => {
   const data = getDiffData(json1, json2);
 
   const prefixes = { space: '    ', minus: '  - ', plus: '  + ' };
@@ -78,21 +74,5 @@ const getDiffResult = (json1, json2) => {
   return `{\n${result.join('\n')}\n}`;
 };
 
-const getDiff = (filepath1, filepath2) => {
-  const file1Data = getFileData(filepath1);
-  const file2Data = getFileData(filepath2);
-
-  if (file1Data.extension !== file2Data.extension) return null;
-
-  switch (file1Data.extension) {
-    case 'json': {
-      return getDiffResult(file1Data.content, file2Data.content);
-    }
-    default: {
-      return '';
-    }
-  }
-};
-
 // eslint-disable-next-line
-export { getDiffData, getDiffResult, getDiff };
+export { getDiffData, getDiff };

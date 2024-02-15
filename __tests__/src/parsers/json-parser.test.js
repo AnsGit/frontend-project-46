@@ -3,18 +3,14 @@ import { test, expect } from '@jest/globals';
 import * as path from 'path';
 import { fileURLToPath } from 'node:url';
 
-import {
-  getDiffData,
-  getDiffResult,
-  getDiff,
-} from '../../../src/parsers/json-parser.js';
+import { getDiffData, getDiff } from '../../../src/parsers/json-parser.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const filesData = [
   {
     path: path.resolve(__dirname, '../../__fixtures__/file1.json'),
-    extension: 'json',
+    format: 'json',
     content: {
       host: 'hexlet.io',
       timeout: 50,
@@ -24,14 +20,9 @@ const filesData = [
   },
   {
     path: path.resolve(__dirname, '../../__fixtures__/file1.json'),
-    extension: 'json',
+    format: 'json',
     content: { timeout: 20, verbose: true, host: 'hexlet.io' },
   },
-];
-
-const filesPaths = [
-  path.resolve(__dirname, '../../__fixtures__/file1.json'),
-  path.resolve(__dirname, '../../__fixtures__/file2.json'),
 ];
 
 test('check json-parser getDiffData()', () => {
@@ -90,8 +81,8 @@ test('check json-parser getDiffData()', () => {
   ]);
 });
 
-test('check json-parser getDiffResult()', () => {
-  const result1 = getDiffResult(filesData[0].content, filesData[1].content);
+test('check json-parser getDiff()', () => {
+  const result1 = getDiff(filesData[0].content, filesData[1].content);
 
   expect(result1).toEqual(`{
   - follow: false
@@ -102,7 +93,7 @@ test('check json-parser getDiffResult()', () => {
   + verbose: true
 }`);
 
-  const result2 = getDiffResult(filesData[1].content, filesData[0].content);
+  const result2 = getDiff(filesData[1].content, filesData[0].content);
 
   expect(result2).toEqual(`{
   + follow: false
@@ -111,18 +102,5 @@ test('check json-parser getDiffResult()', () => {
   - timeout: 20
   + timeout: 50
   - verbose: true
-}`);
-});
-
-test('check json-parser getDiff()', () => {
-  const diff = getDiff(filesPaths[0], filesPaths[1]);
-
-  expect(diff).toEqual(`{
-  - follow: false
-    host: hexlet.io
-  - proxy: 123.234.53.22
-  - timeout: 50
-  + timeout: 20
-  + verbose: true
 }`);
 });
