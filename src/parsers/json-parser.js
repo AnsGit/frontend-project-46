@@ -169,4 +169,4 @@ const getDiff = (json1, json2, indentTemplate = '  $ ') => {
 };
 
 // eslint-disable-next-line
-export { getDiffData, getDiff, stringify };
+export { getDiffData, getDiff, stringify, getStringValue };
