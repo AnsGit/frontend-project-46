@@ -93,7 +93,7 @@ const filesData = [
   },
 ];
 
-test('check json-parser stringify()', () => {
+test('check json-parser getStringValue()', () => {
   expect(getStringValue(123)).toEqual('123');
 });
 

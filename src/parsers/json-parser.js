@@ -100,7 +100,7 @@ const getStringValue = (value, tab = '', startIndent = '') => {
     return JSON.stringify(value);
   }
 
-  return value;
+  return String(value);
 };
 
 const getDiff = (json1, json2, indentTemplate = '  $ ') => {
