@@ -1,16 +1,14 @@
 import { test, expect } from '@jest/globals';
 
+import { cwd } from 'node:process';
 import * as path from 'path';
-import { fileURLToPath } from 'node:url';
 
 import { getFileData, getFileJSON } from '../../../src/parsers/file-reader.js';
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-
 const filesPaths = [
-  path.resolve(__dirname, '../../__fixtures__/file1.json'),
-  path.resolve(__dirname, '../../__fixtures__/file2.yaml'),
-  path.resolve(__dirname, '../../__fixtures__/temp.temp'),
+  path.resolve(cwd(), './__fixtures__/file1.json'),
+  path.resolve(cwd(), './__fixtures__/file2.yaml'),
+  path.resolve(cwd(), './__fixtures__/temp.temp'),
 ];
 
 test('check file-reader getFileData()', () => {

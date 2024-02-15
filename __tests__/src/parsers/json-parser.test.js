@@ -1,15 +1,13 @@
 import { test, expect } from '@jest/globals';
 
+import { cwd } from 'node:process';
 import * as path from 'path';
-import { fileURLToPath } from 'node:url';
 
 import { getDiffData, getDiff } from '../../../src/parsers/json-parser.js';
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-
 const filesData = [
   {
-    path: path.resolve(__dirname, '../../__fixtures__/file1.json'),
+    path: path.resolve(cwd(), './__fixtures__/file1.json'),
     format: 'json',
     content: {
       host: 'hexlet.io',
@@ -19,7 +17,7 @@ const filesData = [
     },
   },
   {
-    path: path.resolve(__dirname, '../../__fixtures__/file1.json'),
+    path: path.resolve(cwd(), './__fixtures__/file1.json'),
     format: 'json',
     content: { timeout: 20, verbose: true, host: 'hexlet.io' },
   },
