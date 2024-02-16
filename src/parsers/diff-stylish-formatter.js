@@ -53,12 +53,12 @@ const getStylishDiff = (data, indentTemplate = '  $ ') => {
 
     // eslint-disable-next-line
     const result = iterData.reduce((acc, { key, status, values, children }) => {
-      const formattedNewValue = getStylishValue(
+      const stylishNewValue = getStylishValue(
         values.new,
         space,
         indent + space,
       );
-      const formattedOldValue = getStylishValue(
+      const stylishOldValue = getStylishValue(
         values.old,
         space,
         indent + space,
@@ -72,25 +72,25 @@ const getStylishDiff = (data, indentTemplate = '  $ ') => {
           }
           // No changed children
           else {
-            acc.push(`${indent}${space}${key}: ${formattedOldValue}`);
+            acc.push(`${indent}${space}${key}: ${stylishOldValue}`);
           }
           break;
         }
         case 'created': {
-          acc.push(`${indent}${plus}${key}: ${formattedNewValue}`);
+          acc.push(`${indent}${plus}${key}: ${stylishNewValue}`);
           break;
         }
         case 'updated': {
-          acc.push(`${indent}${minus}${key}: ${formattedOldValue}`);
-          acc.push(`${indent}${plus}${key}: ${formattedNewValue}`);
+          acc.push(`${indent}${minus}${key}: ${stylishOldValue}`);
+          acc.push(`${indent}${plus}${key}: ${stylishNewValue}`);
           break;
         }
         case 'deleted': {
-          acc.push(`${indent}${minus}${key}: ${formattedOldValue}`);
+          acc.push(`${indent}${minus}${key}: ${stylishOldValue}`);
           break;
         }
         default: {
-          break;
+          return acc;
         }
       }
 

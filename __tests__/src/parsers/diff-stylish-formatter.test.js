@@ -9,24 +9,9 @@ import {
   stringify,
   getStylishValue,
   getStylishDiff,
-} from '../../../src/parsers/diff-formatter.js';
+} from '../../../src/parsers/diff-stylish-formatter.js';
 
 const filesData = [
-  {
-    path: path.resolve(cwd(), './__fixtures__/file1.json'),
-    format: 'json',
-    content: {
-      host: 'hexlet.io',
-      timeout: 50,
-      proxy: '123.234.53.22',
-      follow: false,
-    },
-  },
-  {
-    path: path.resolve(cwd(), './__fixtures__/file1.json'),
-    format: 'json',
-    content: { timeout: 20, verbose: true, host: 'hexlet.io' },
-  },
   {
     path: path.resolve(cwd(), './__fixtures__/file3.json'),
     format: 'json',
@@ -123,7 +108,7 @@ test('check json-parser stringify()', () => {
 });
 
 test('check json-parser getStylishDiff()', () => {
-  const diff0Data = getDiffData(filesData[2].content, filesData[3].content);
+  const diff0Data = getDiffData(filesData[0].content, filesData[1].content);
   const result0 = getStylishDiff(diff0Data);
 
   expect(result0).toEqual(`{

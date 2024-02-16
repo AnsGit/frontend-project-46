@@ -1,6 +1,7 @@
 import { getFileJSON } from './file-reader.js';
 import { getDiffData } from './json-comparer.js';
-import { getStylishDiff } from './diff-formatter.js';
+import { getStylishDiff } from './diff-stylish-formatter.js';
+import { getPlainDiff } from './diff-plain-formatter.js';
 
 export default (file1path, file2path, options = {}) => {
   const file1JSON = getFileJSON(file1path);
@@ -12,6 +13,10 @@ export default (file1path, file2path, options = {}) => {
 
   if (options.format === 'stylish') {
     return getStylishDiff(data);
+  }
+
+  if (options.format === 'plain') {
+    return getPlainDiff(data);
   }
 
   return null;
