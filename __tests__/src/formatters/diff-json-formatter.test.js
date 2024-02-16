@@ -5,8 +5,8 @@ import { getJsonDiff } from '../../../src/formatters/diff-json-formatter.js';
 
 import filesData from '../../../__fixtures__/files-data.js';
 
-test('check json-parser getJsonDiff()', () => {
-  const diff0Data = getDiffData(filesData[0].content, filesData[1].content);
+test('check getJsonDiff()', () => {
+  const diff0Data = getDiffData(filesData[2].content, filesData[3].content);
   const result0 = getJsonDiff(diff0Data);
 
   expect(result0).toEqual(
@@ -18,7 +18,7 @@ test('check json-parser getJsonDiff()', () => {
 
   expect(result1).toEqual('{}');
 
-  const diff2Data = getDiffData(filesData[0].content, {});
+  const diff2Data = getDiffData(filesData[2].content, {});
   const result2 = getJsonDiff(diff2Data);
 
   expect(result2).toEqual('{}');

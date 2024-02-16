@@ -3,7 +3,22 @@ import * as path from 'path';
 
 export default [
   {
-    path: path.resolve(cwd(), './file3.json'),
+    path: path.resolve(cwd(), './__fixtures__/file1.json'),
+    format: 'json',
+    content: {
+      host: 'hexlet.io',
+      timeout: 50,
+      proxy: '123.234.53.22',
+      follow: false,
+    },
+  },
+  {
+    path: path.resolve(cwd(), './__fixtures__/file1.json'),
+    format: 'json',
+    content: { timeout: 20, verbose: true, host: 'hexlet.io' },
+  },
+  {
+    path: path.resolve(cwd(), './__fixtures__/file3.json'),
     format: 'json',
     content: {
       common: {
@@ -33,7 +48,7 @@ export default [
     },
   },
   {
-    path: path.resolve(cwd(), './file4.json'),
+    path: path.resolve(cwd(), './__fixtures__/file4.json'),
     format: 'json',
     content: {
       common: {

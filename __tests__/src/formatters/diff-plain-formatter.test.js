@@ -9,7 +9,7 @@ import {
 
 import filesData from '../../../__fixtures__/files-data.js';
 
-test('check json-parser getPlainText()', () => {
+test('check getPlainText()', () => {
   const text0 = getPlainText('deleted', 'common.setting2');
 
   expect(text0).toEqual(
@@ -32,8 +32,8 @@ test('check json-parser getPlainText()', () => {
   );
 });
 
-test('check json-parser getPlainDiff()', () => {
-  const diff0Data = getDiffData(filesData[0].content, filesData[1].content);
+test('check getPlainDiff()', () => {
+  const diff0Data = getDiffData(filesData[2].content, filesData[3].content);
   const result0 = getPlainDiff(diff0Data);
 
   expect(result0).toEqual(`Property 'common.follow' was added with value: false

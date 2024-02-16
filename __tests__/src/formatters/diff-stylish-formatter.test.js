@@ -10,12 +10,12 @@ import {
 
 import filesData from '../../../__fixtures__/files-data.js';
 
-test('check json-parser getStylishValue()', () => {
+test('check getStylishValue()', () => {
   expect(getStylishValue(123)).toEqual('123');
   expect(getStylishValue([1, 2, 3])).toEqual('[1,2,3]');
 });
 
-test('check json-parser stringify()', () => {
+test('check stringify()', () => {
   const obj = {
     a: 5,
     b: {
@@ -40,8 +40,8 @@ test('check json-parser stringify()', () => {
   expect(stringify({})).toEqual('');
 });
 
-test('check json-parser getStylishDiff()', () => {
-  const diff0Data = getDiffData(filesData[0].content, filesData[1].content);
+test('check getStylishDiff()', () => {
+  const diff0Data = getDiffData(filesData[2].content, filesData[3].content);
   const result0 = getStylishDiff(diff0Data);
 
   expect(result0).toEqual(`{

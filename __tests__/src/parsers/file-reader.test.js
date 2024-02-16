@@ -11,7 +11,7 @@ const filesPaths = [
   path.resolve(cwd(), './__fixtures__/temp.temp'),
 ];
 
-test('check file-reader getFileData()', () => {
+test('check getFileData()', () => {
   const data1 = getFileData(filesPaths[0]);
 
   expect(data1.path).toEqual(filesPaths[0]);
@@ -26,7 +26,7 @@ test('check file-reader getFileData()', () => {
   expect(data3.format).toEqual('temp');
 });
 
-test('check file-reader getFileJSON()', () => {
+test('check getFileJSON()', () => {
   const json1 = getFileJSON(filesPaths[0]);
 
   expect(json1).toEqual({
