@@ -1,5 +1,5 @@
 const getJsonDiff = (data) => {
-  if (!data.length) return {};
+  if (!data.length) return '{}';
 
   const iter = (iterData) => {
     // eslint-disable-next-line
@@ -36,7 +36,7 @@ const getJsonDiff = (data) => {
     return result;
   };
 
-  return iter(data);
+  return JSON.stringify(iter(data));
 };
 
 // eslint-disable-next-line
