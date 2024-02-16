@@ -1,8 +1,13 @@
-import getDiff from './parsers/index.js';
+import { getFileJSON, getDiffData } from './parsers/index.js';
+import getFormattedDiff from './formatters/index.js';
 
-const genDiff = (filepath1, filepath2, options = {}) => {
-  const diff = getDiff(filepath1, filepath2, options);
-  console.log(diff);
+export default (file1path, file2path, options = {}) => {
+  const file1JSON = getFileJSON(file1path);
+  const file2JSON = getFileJSON(file2path);
+
+  if (file1JSON === null || file2JSON === null) return null;
+
+  const data = getDiffData(file1JSON, file2JSON);
+
+  return getFormattedDiff(data, options.format);
 };
-
-export { getDiff, genDiff };

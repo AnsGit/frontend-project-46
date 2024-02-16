@@ -9,7 +9,7 @@ import {
   stringify,
   getStylishValue,
   getStylishDiff,
-} from '../../../src/parsers/diff-stylish-formatter.js';
+} from '../../../src/formatters/diff-stylish-formatter.js';
 
 const filesData = [
   {

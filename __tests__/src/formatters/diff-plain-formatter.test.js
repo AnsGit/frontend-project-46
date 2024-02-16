@@ -8,7 +8,7 @@ import { getDiffData } from '../../../src/parsers/json-comparer.js';
 import {
   getPlainText,
   getPlainDiff,
-} from '../../../src/parsers/diff-plain-formatter.js';
+} from '../../../src/formatters/diff-plain-formatter.js';
 
 const filesData = [
   {
