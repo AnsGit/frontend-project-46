@@ -36,6 +36,8 @@ test('check json-parser stringify()', () => {
         }
     }
 }`);
+
+  expect(stringify({})).toEqual('');
 });
 
 test('check json-parser getStylishDiff()', () => {

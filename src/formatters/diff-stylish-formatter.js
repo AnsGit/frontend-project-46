@@ -86,11 +86,9 @@ const getStylishDiff = (data, indentTemplate = '  $ ') => {
             `${indent}${plus}${key}: ${stylishNewValue}`,
           ];
         }
-        case 'deleted': {
-          return [...acc, `${indent}${minus}${key}: ${stylishOldValue}`];
-        }
         default: {
-          return acc;
+          // deleted
+          return [...acc, `${indent}${minus}${key}: ${stylishOldValue}`];
         }
       }
     }, []);

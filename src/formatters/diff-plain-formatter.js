@@ -62,11 +62,9 @@ const getPlainDiff = (data) => {
             ),
           ];
         }
-        case 'deleted': {
-          return [...acc, `Property '${curFormattedPath}' was removed`];
-        }
         default: {
-          return acc;
+          // deleted
+          return [...acc, `Property '${curFormattedPath}' was removed`];
         }
       }
     }, []);

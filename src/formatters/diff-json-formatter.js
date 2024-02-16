@@ -26,10 +26,8 @@ const getJsonDiff = (data) => {
             [key]: values.new,
           };
         }
-        case 'deleted': {
-          return acc;
-        }
         default: {
+          // deleted
           return acc;
         }
       }
