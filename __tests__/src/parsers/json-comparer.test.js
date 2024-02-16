@@ -3,7 +3,10 @@ import { test, expect } from '@jest/globals';
 import { cwd } from 'node:process';
 import * as path from 'path';
 
-import { getDiffData } from '../../../src/parsers/json-comparer.js';
+import {
+  getJsonsUniqKeys,
+  getDiffData,
+} from '../../../src/parsers/json-comparer.js';
 
 const filesData = [
   {
@@ -87,6 +90,14 @@ const filesData = [
     },
   },
 ];
+
+test('check json-parser getJsonsUniqKeys()', () => {
+  const keys1 = getJsonsUniqKeys({ c: 3, a: 1, b: 2 }, { a: 1, d: 4 });
+  expect(keys1).toEqual(['a', 'b', 'c', 'd']);
+
+  const keys2 = getJsonsUniqKeys({}, {});
+  expect(keys2).toEqual([]);
+});
 
 test('check json-parser getDiffData()', () => {
   const data0 = getDiffData(filesData[0].content, filesData[1].content);

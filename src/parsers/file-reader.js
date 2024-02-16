@@ -31,23 +31,17 @@ const getFileData = (filepath) => {
 const getFileJSON = (filepath) => {
   const fileData = getFileData(filepath);
 
-  let json;
-
   switch (fileData.format) {
     case 'yml': {
-      json = yaml.load(fileData.content);
-      break;
+      return yaml.load(fileData.content);
     }
     case 'json': {
-      json = JSON.parse(fileData.content);
-      break;
+      return JSON.parse(fileData.content);
     }
     default: {
-      json = null;
+      return null;
     }
   }
-
-  return json;
 };
 
 export { getFileData, getFileJSON };
