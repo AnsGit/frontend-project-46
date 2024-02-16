@@ -15,8 +15,8 @@ program
     'stylish',
   )
   .arguments('<filepath1> <filepath2>')
-  .action((...args) => {
-    const diff = getDiff(...args);
+  .action((file1path, file2path, { format }) => {
+    const diff = getDiff(file1path, file2path, format);
     console.log(diff);
   });
 
