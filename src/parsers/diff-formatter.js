@@ -1,68 +1,5 @@
 import _ from 'lodash';
 
-const getDiffData = (json1, json2) => {
-  const keys = _.uniq([...Object.keys(json1), ...Object.keys(json2)]);
-
-  if (!keys.length) return [];
-
-  const sortedKeys = _.sortBy(keys);
-
-  const result = [];
-
-  sortedKeys.forEach((key) => {
-    let status;
-    const children = [];
-    const values = {};
-
-    // deleted
-    if (!Object.hasOwn(json2, key)) {
-      status = 'deleted';
-      values.old = json1[key];
-    }
-    // updated
-    else if (Object.hasOwn(json1, key)) {
-      const isEqual = _.isEqual(json1[key], json2[key]);
-
-      // is equal
-      if (isEqual) {
-        status = 'no-changes';
-        values.old = json1[key];
-      }
-      // is not equal
-      else {
-        const isValue1Object = _.isPlainObject(json1[key]);
-        const isValue2Object = _.isPlainObject(json2[key]);
-
-        // Is object
-        if (isValue1Object && isValue2Object) {
-          status = 'no-changes';
-          children.push(...getDiffData(json1[key], json2[key]));
-        }
-        // Is not object
-        else {
-          status = 'updated';
-          values.old = json1[key];
-          values.new = json2[key];
-        }
-      }
-    }
-    // created
-    else {
-      status = 'created';
-      values.new = json2[key];
-    }
-
-    result.push({
-      key,
-      status,
-      values,
-      children,
-    });
-  });
-
-  return result;
-};
-
 const stringify = (obj, tab = '', startIndent = '') => {
   const iter = (props, depth) => {
     const keys = Object.keys(props);
@@ -91,7 +28,7 @@ const stringify = (obj, tab = '', startIndent = '') => {
   return iter(obj, 0);
 };
 
-const getStringValue = (value, tab = '', startIndent = '') => {
+const getStylishValue = (value, tab = '', startIndent = '') => {
   if (_.isPlainObject(value)) {
     return stringify(value, tab, startIndent);
   }
@@ -103,9 +40,7 @@ const getStringValue = (value, tab = '', startIndent = '') => {
   return String(value);
 };
 
-const getDiff = (json1, json2, indentTemplate = '  $ ') => {
-  const data = getDiffData(json1, json2);
-
+const getStylishDiff = (data, indentTemplate = '  $ ') => {
   if (!data.length) return '{}';
 
   const [space, minus, plus] = [' ', '-', '+'].map((symbol) => {
@@ -118,12 +53,12 @@ const getDiff = (json1, json2, indentTemplate = '  $ ') => {
 
     // eslint-disable-next-line
     const result = iterData.reduce((acc, { key, status, values, children }) => {
-      const formattedNewValue = getStringValue(
+      const formattedNewValue = getStylishValue(
         values.new,
         space,
         indent + space,
       );
-      const formattedOldValue = getStringValue(
+      const formattedOldValue = getStylishValue(
         values.old,
         space,
         indent + space,
@@ -168,5 +103,4 @@ const getDiff = (json1, json2, indentTemplate = '  $ ') => {
   return iter(data, 0);
 };
 
-// eslint-disable-next-line
-export { getDiffData, getDiff, stringify, getStringValue };
+export { stringify, getStylishValue, getStylishDiff };

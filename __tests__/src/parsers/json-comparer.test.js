@@ -3,12 +3,7 @@ import { test, expect } from '@jest/globals';
 import { cwd } from 'node:process';
 import * as path from 'path';
 
-import {
-  getDiffData,
-  getDiff,
-  stringify,
-  getStringValue,
-} from '../../../src/parsers/json-parser.js';
+import { getDiffData } from '../../../src/parsers/json-comparer.js';
 
 const filesData = [
   {
@@ -92,33 +87,6 @@ const filesData = [
     },
   },
 ];
-
-test('check json-parser getStringValue()', () => {
-  expect(getStringValue(123)).toEqual('123');
-});
-
-test('check json-parser stringify()', () => {
-  const obj = {
-    a: 5,
-    b: {
-      c: 'null',
-      d: [1, 2, 3],
-      e: { f: 10, g: 'value' },
-    },
-  };
-
-  expect(stringify(obj, '    ')).toEqual(`{
-    a: 5
-    b: {
-        c: null
-        d: [1,2,3]
-        e: {
-            f: 10
-            g: value
-        }
-    }
-}`);
-});
 
 test('check json-parser getDiffData()', () => {
   const data0 = getDiffData(filesData[0].content, filesData[1].content);
@@ -228,79 +196,4 @@ test('check json-parser getDiffData()', () => {
       children: [],
     },
   ]);
-});
-
-test('check json-parser getDiff()', () => {
-  const result1 = getDiff(filesData[0].content, filesData[1].content);
-
-  expect(result1).toEqual(`{
-  - follow: false
-    host: hexlet.io
-  - proxy: 123.234.53.22
-  - timeout: 50
-  + timeout: 20
-  + verbose: true
-}`);
-
-  const result2 = getDiff(filesData[1].content, filesData[0].content);
-
-  expect(result2).toEqual(`{
-  + follow: false
-    host: hexlet.io
-  + proxy: 123.234.53.22
-  - timeout: 20
-  + timeout: 50
-  - verbose: true
-}`);
-
-  const result3 = getDiff(filesData[2].content, filesData[3].content);
-
-  expect(result3).toEqual(`{
-    common: {
-      + follow: false
-        setting1: Value 1
-      - setting2: 200
-      - setting3: true
-      + setting3: null
-      + setting4: blah blah
-      + setting5: {
-            key5: value5
-        }
-        setting6: {
-            doge: {
-              - wow: 
-              + wow: so much
-            }
-            key: value
-          + ops: vops
-        }
-    }
-    group1: {
-      - baz: bas
-      + baz: bars
-        foo: bar
-      - nest: {
-            key: value
-        }
-      + nest: str
-    }
-  - group2: {
-        abc: 12345
-        deep: {
-            id: 45
-        }
-    }
-  + group3: {
-        deep: {
-            id: {
-                number: 45
-            }
-        }
-        fee: 100500
-    }
-}`);
-
-  const result4 = getDiff({}, {});
-
-  expect(result4).toEqual('{}');
 });
