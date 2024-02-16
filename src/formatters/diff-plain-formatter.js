@@ -39,8 +39,8 @@ const getPlainDiff = (data) => {
 
       switch (status) {
         case 'no-changes': {
-          // Has changed children
           if (children.length) {
+            // Has changed children
             acc.push(iter(children, curPath));
           }
           // No changed children

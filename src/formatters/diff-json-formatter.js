@@ -8,19 +8,23 @@ const getJsonDiff = (data) => {
         case 'no-changes': {
           // Has changed children
           if (children.length) {
-            acc[key] = iter(children);
+            return {
+              ...acc,
+              [key]: iter(children),
+            };
           }
           // No changed children
-          else {
-            acc[key] = values.old;
-            return acc;
-          }
-          break;
+          return {
+            ...acc,
+            [key]: values.old,
+          };
         }
         case 'created':
         case 'updated': {
-          acc[key] = values.new;
-          break;
+          return {
+            ...acc,
+            [key]: values.new,
+          };
         }
         case 'deleted': {
           return acc;
@@ -29,8 +33,6 @@ const getJsonDiff = (data) => {
           return acc;
         }
       }
-
-      return acc;
     }, {});
 
     return result;

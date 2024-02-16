@@ -10,14 +10,16 @@ const getDiffData = (json1, json2) => {
   const result = [];
 
   sortedKeys.forEach((key) => {
-    let status;
-    const children = [];
-    const values = {};
+    const data = {
+      key,
+      children: [],
+      values: {},
+    };
 
     // deleted
     if (!Object.hasOwn(json2, key)) {
-      status = 'deleted';
-      values.old = json1[key];
+      data.status = 'deleted';
+      data.values.old = json1[key];
     }
     // updated
     else if (Object.hasOwn(json1, key)) {
@@ -25,8 +27,8 @@ const getDiffData = (json1, json2) => {
 
       // is equal
       if (isEqual) {
-        status = 'no-changes';
-        values.old = json1[key];
+        data.status = 'no-changes';
+        data.values.old = json1[key];
       }
       // is not equal
       else {
@@ -35,29 +37,24 @@ const getDiffData = (json1, json2) => {
 
         // Is object
         if (isValue1Object && isValue2Object) {
-          status = 'no-changes';
-          children.push(...getDiffData(json1[key], json2[key]));
+          data.status = 'no-changes';
+          data.children.push(...getDiffData(json1[key], json2[key]));
         }
         // Is not object
         else {
-          status = 'updated';
-          values.old = json1[key];
-          values.new = json2[key];
+          data.status = 'updated';
+          data.values.old = json1[key];
+          data.values.new = json2[key];
         }
       }
     }
     // created
     else {
-      status = 'created';
-      values.new = json2[key];
+      data.status = 'created';
+      data.values.new = json2[key];
     }
 
-    result.push({
-      key,
-      status,
-      values,
-      children,
-    });
+    result.push(data);
   });
 
   return result;

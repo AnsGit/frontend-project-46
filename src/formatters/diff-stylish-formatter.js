@@ -68,33 +68,31 @@ const getStylishDiff = (data, indentTemplate = '  $ ') => {
         case 'no-changes': {
           // Has changed children
           if (children.length) {
-            acc.push(`${indent}${space}${key}: ${iter(children, depth + 1)}`);
+            return [
+              ...acc,
+              `${indent}${space}${key}: ${iter(children, depth + 1)}`,
+            ];
           }
           // No changed children
-          else {
-            acc.push(`${indent}${space}${key}: ${stylishOldValue}`);
-          }
-          break;
+          return [...acc, `${indent}${space}${key}: ${stylishOldValue}`];
         }
         case 'created': {
-          acc.push(`${indent}${plus}${key}: ${stylishNewValue}`);
-          break;
+          return [...acc, `${indent}${plus}${key}: ${stylishNewValue}`];
         }
         case 'updated': {
-          acc.push(`${indent}${minus}${key}: ${stylishOldValue}`);
-          acc.push(`${indent}${plus}${key}: ${stylishNewValue}`);
-          break;
+          return [
+            ...acc,
+            `${indent}${minus}${key}: ${stylishOldValue}`,
+            `${indent}${plus}${key}: ${stylishNewValue}`,
+          ];
         }
         case 'deleted': {
-          acc.push(`${indent}${minus}${key}: ${stylishOldValue}`);
-          break;
+          return [...acc, `${indent}${minus}${key}: ${stylishOldValue}`];
         }
         default: {
           return acc;
         }
       }
-
-      return acc;
     }, []);
 
     return `{\n${result.join('\n')}\n${indent}}`;
