@@ -1,7 +1,7 @@
 import { getFileJSON, getDiffData } from './parsers/index.js';
 import getFormattedDiff from './formatters/index.js';
 
-export default (file1path, file2path, options = {}) => {
+export default (file1path, file2path, format) => {
   const file1JSON = getFileJSON(file1path);
   const file2JSON = getFileJSON(file2path);
 
@@ -9,5 +9,5 @@ export default (file1path, file2path, options = {}) => {
 
   const data = getDiffData(file1JSON, file2JSON);
 
-  return getFormattedDiff(data, options.format);
+  return getFormattedDiff(data, format);
 };

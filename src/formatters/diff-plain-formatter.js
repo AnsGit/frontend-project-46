@@ -12,17 +12,16 @@ const getPlainValue = (value) => {
   return value;
 };
 
-const getPlainText = (status, path, ...values) => {
+const getPlainText = (status, path, value0, value1) => {
   const templates = {
     created: `Property '${path}' was added with value: {value-0}`,
     updated: `Property '${path}' was updated. From {value-0} to {value-1}`,
     deleted: `Property '${path}' was removed`,
   };
 
-  // eslint-disable-next-line
-  return values.reduce((acc, value, i) => {
-    return acc.replace(`{value-${i}}`, value);
-  }, templates[status]);
+  return templates[status]
+    .replace('{value-0}', value0)
+    .replace('{value-1}', value1);
 };
 
 const getPlainDiff = (data) => {
@@ -39,41 +38,35 @@ const getPlainDiff = (data) => {
 
       switch (status) {
         case 'no-changes': {
-          // Has changed children
           if (children.length) {
-            acc.push(iter(children, curPath));
+            // Has changed children
+            return [...acc, iter(children, curPath)];
           }
           // No changed children
-          else {
-            return acc;
-          }
-          break;
+          return acc;
         }
         case 'created': {
-          acc.push(getPlainText(status, curFormattedPath, plainNewValue));
-          break;
+          return [
+            ...acc,
+            getPlainText(status, curFormattedPath, plainNewValue),
+          ];
         }
         case 'updated': {
-          acc.push(
+          return [
+            ...acc,
             getPlainText(
               status,
               curFormattedPath,
               plainOldValue,
               plainNewValue,
             ),
-          );
-          break;
-        }
-        case 'deleted': {
-          acc.push(`Property '${curFormattedPath}' was removed`);
-          break;
+          ];
         }
         default: {
-          return acc;
+          // deleted
+          return [...acc, `Property '${curFormattedPath}' was removed`];
         }
       }
-
-      return acc;
     }, []);
 
     return result.join('\n');

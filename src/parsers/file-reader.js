@@ -9,50 +9,39 @@ const getFileData = (filepath) => {
   const extension = path.extname(filepath).slice(1);
   const content = fs.readFileSync(filepath);
 
-  let format;
+  const data = {
+    path: absPath,
+    content,
+  };
 
   switch (extension) {
     case 'json': {
-      format = 'json';
-      break;
+      return { ...data, format: 'json' };
     }
     case 'yaml':
     case 'yml': {
-      format = 'yml';
-      break;
+      return { ...data, format: 'yml' };
     }
     default: {
-      format = extension;
+      return { ...data, format: extension };
     }
   }
-
-  return {
-    path: absPath,
-    format,
-    content,
-  };
 };
 
 const getFileJSON = (filepath) => {
   const fileData = getFileData(filepath);
 
-  let json;
-
   switch (fileData.format) {
     case 'yml': {
-      json = yaml.load(fileData.content);
-      break;
+      return yaml.load(fileData.content);
     }
     case 'json': {
-      json = JSON.parse(fileData.content);
-      break;
+      return JSON.parse(fileData.content);
     }
     default: {
-      json = null;
+      return null;
     }
   }
-
-  return json;
 };
 
 export { getFileData, getFileJSON };
